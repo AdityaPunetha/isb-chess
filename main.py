@@ -1,6 +1,7 @@
 import requests
 import json
 import discord
+from discord.utils import get
 
 
 def get_lichess(name):
@@ -21,7 +22,7 @@ def give_role(rating):
     pass
 
 
-TOKEN = ''
+TOKEN = 'ODUyODgxNDgzMjkwNzcxNDcx.YMNRxw.s-xZs8s9c4fJP2fqQsC-nT4oVDk'
 client = discord.Client()
 
 
@@ -34,9 +35,10 @@ async def on_ready():
 async def on_message(message):
     msg = message.content
     if message.content.startswith('$lichess'):
-        a = msg.split('$lichess ')[1]
-        rating = get_lichess(a)
-        await message.channel.send(get_lichess(a))
+        rating = get_lichess(msg.split('$lichess ')[1])
+        member = message.author
+        role = get(member.guild.roles, name="test lichess role")
+        await member.add_roles(role)
     if message.content.startswith('$chessdotcom'):
         a = msg.split('$chessdotcom ')[1]
         await message.channel.send(get_chessdotcom(a))
