@@ -17,6 +17,10 @@ def get_chessdotcom(name):
     return json_data['chess_rapid']['last']['rating']
 
 
+def give_role(rating):
+    pass
+
+
 TOKEN = ''
 client = discord.Client()
 
@@ -31,6 +35,7 @@ async def on_message(message):
     msg = message.content
     if message.content.startswith('$lichess'):
         a = msg.split('$lichess ')[1]
+        rating = get_lichess(a)
         await message.channel.send(get_lichess(a))
     if message.content.startswith('$chessdotcom'):
         a = msg.split('$chessdotcom ')[1]
